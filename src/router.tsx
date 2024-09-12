@@ -5,6 +5,8 @@ import { PageThree } from './components/pages/PageThree';
 import { Error404 } from './components/pages/Error404';
 import App from './App';
 import { Modal } from './components/Modal';
+import { Trainers } from './components/Trainers';
+import { Counter } from './components/Counter';
 
 export const PATH = {
   PAGE_ONE: 'pageOne',
@@ -14,20 +16,7 @@ export const PATH = {
   NOT_FOUND: 'not-found',
 };
 
-export const navlinksItems = [
-  {
-    name: 'Adidas',
-    url: PATH.PAGE_ONE,
-  },
-  {
-    name: 'Puma',
-    url: PATH.PAGE_TWO,
-  },
-  {
-    name: 'Abidas',
-    url: PATH.PAGE_THREE,
-  },
-];
+
 
 export const router = createBrowserRouter([
   {
@@ -35,25 +24,33 @@ export const router = createBrowserRouter([
     element: <App />,
     children: [
       {
-        path: '',
-        element: <Navigate to="pageOne" replace />,
+        path: '/trainers',
+        element: <Trainers/>,
+        children: [
+          {
+            path: `/trainers/${PATH.PAGE_ONE}`,
+            element: <PageOne />,
+          },
+          {
+            path: `/trainers/${PATH.PAGE_ONE}/:id`,
+            element: <Modal />,
+          },
+          {
+            path: `/trainers/${PATH.PAGE_TWO}`,
+            element: <PageTwo />,
+          },
+          {
+            path: `/trainers/${PATH.PAGE_THREE}`,
+            element: <PageThree />,
+          },
+        ],
       },
       {
-        path: PATH.PAGE_ONE,
-        element: <PageOne />,
+        path: '/counter',
+        element: <Counter/>
       },
-      {
-        path: `${PATH.PAGE_ONE}/:id`,
-        element: <Modal />,
-      },
-      {
-        path: PATH.PAGE_TWO,
-        element: <PageTwo />,
-      },
-      {
-        path: PATH.PAGE_THREE,
-        element: <PageThree />,
-      },
+
+
       {
         path: PATH.ERROR_404,
         element: <Error404 />,

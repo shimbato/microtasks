@@ -11,8 +11,9 @@ export const PageOne = () => {
       <S.Wrapper>
         {adidasArr.map((el) => {
           // console.log('path', `${PATH.PAGE_ONE}/${el.id}`);
+
           return (
-            <Link to={`/${PATH.PAGE_ONE}/2`}>
+            <Link to={`/trainers/${PATH.PAGE_ONE}/${el.id}`}>
               <S.Img src={el.picture} alt={el.collection} />
             </Link>
           );
