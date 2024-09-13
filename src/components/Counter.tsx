@@ -5,7 +5,7 @@ import { Buttons } from './Buttons';
 export const Counter = () => {
   const [maxValue, setMaxValue] = useState(0);
   const [starValue, setStartValue] = useState(0);
-
+  const [isSet, setIsSet] = useState<boolean>(false);
   const [inc, setInc] = useState<number>(starValue);
 
   const getMaxValue = (e: ChangeEvent<HTMLInputElement>) => {
@@ -24,10 +24,12 @@ export const Counter = () => {
 
   const handleCompare = () => {
     setInc(inc === maxValue ? maxValue : starValue);
+    setIsSet(true);
   };
 
   const handleReset = () => {
-    setInc(0);
+    setInc(starValue);
+    setIsSet(false);
     setMaxValue(0);
     setStartValue(0);
   };
@@ -47,17 +49,15 @@ export const Counter = () => {
         <Buttons
           title="Set"
           onClick={handleCompare}
-          message={
-            (maxValue === starValue ? "You can't choose similiar number" : null) ||
-            (maxValue < starValue ? "Start number can't be lower max number" : null)
-          }
-          disabled={maxValue === starValue || maxValue < starValue}
+          disabled={maxValue <= starValue || starValue < 0 || maxValue < 0}
         />
       </Wrapper>
       <Wrapper flexDirection="column" border width padding height>
-        <Title color={inc === maxValue}>{inc}</Title>
+        <Title>
+          {(maxValue <= starValue || starValue < 0 || maxValue < 0) && !inc ? 'Invalid value' : inc}
+        </Title>
         <Wrapper>
-          <Buttons title="increase" onClick={handleIncrease} disabled={inc === maxValue} />
+          <Buttons title="increase" onClick={handleIncrease} disabled={!isSet || inc >= maxValue} />
           <Buttons title="reset" onClick={handleReset} />
         </Wrapper>
       </Wrapper>
