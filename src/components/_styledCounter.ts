@@ -16,13 +16,14 @@ export const Wrapper = styled.div<{
   width?: boolean;
   padding?: boolean;
   height?: boolean;
+  error?: boolean;
 }>`
   display: flex;
   flex-direction: ${({ flexDirection }) => flexDirection || 'row'};
   justify-content: space-evenly;
   gap: ${({ gap }) => gap || '2rem'};
   align-items: ${({ alingItems }) => alingItems || 'normal'};
-  border: ${({ border }) => (border ? '3px solid red' : 'none')};
+  border: ${({ border }) => (border ? '3px solid green' : 'none')};
   width: ${({ width }) => (width ? '30rem' : 'auto')};
   height: ${({ height }) => (height ? '30vh' : '')};
   border-radius: 10px;
@@ -32,10 +33,11 @@ export const Wrapper = styled.div<{
     border-radius: 10px;
     text-align: center;
     outline: none;
-    border-color: red;
+    border-color: ${({ error }) => (error ? 'red' : 'black')};
+    background-color: ${({ error }) => (error ? '#ffdfd4' : '')};
     &:hover,
     &:focus {
-      border-color: black;
+      /* border-color: black; */
       outline: none;
     }
 
@@ -47,7 +49,7 @@ export const Wrapper = styled.div<{
 
 export const Button = styled.button`
   background-color: inherit;
-  border: 1px solid red;
+  border: 1px solid green;
   border-radius: 10px;
   outline: none;
   width: 100px;
